@@ -1,0 +1,146 @@
+﻿@model CustomerOnboardingApp.Presentation.ViewModels.Customer.CustomerViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Onboarding Form</title>
+    <link rel="stylesheet" href="/Assets/CSS/Customer/Create.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Onboarding Form</h1>
+        <p class="info-text">Please fill out the form below with the necessary details. Fields marked with an asterisk (*) are required.</p>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="error-message">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            </div>
+        }
+        <form id="customerForm" enctype="multipart/form-data" method="post" asp-controller="Customer" asp-action="Submit">
+            @Html.AntiForgeryToken()
+            <div id="errorMessagesCustomer" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MainPurposeId">Main Purpose <small>*</small></label>
+                <select id="mainPurposeId" asp-for="MainPurposeId" class="form-control" name="mainPurposeId">
+                    <option value="">-- Select a Main Purpose --</option> 
+                    @foreach (var item in Model.MainPurposeList)
+                    {
+                        <option value="@item.DropdownId" @(item.DropdownId == Model.MainPurposeId ? "selected" : "")>@item.DropdownValue</option>
+                    }
+                </select>
+                <span asp-validation-for="MainPurposeId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="nameOfCompany">Name of Company: <small>*</small></label>
+                <input asp-for="nameOfCompany" type="text" id="nameOfCompany" name="nameOfCompany" value="@Model.NameOfCompany" />
+                <span asp-validation-for="NameOfCompany" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TypeOfEntityId">Type Of Entity <small>*</small></label>
+                <select id="typeOfEntityId" asp-for="TypeOfEntityId" class="form-control" name="typeOfEntityId">
+                    <option value="">-- Select a Type Of Entity --</option> 
+                    @foreach (var item in Model.TypeOfEntityList)
+                    {
+                        <option value="@item.DropdownId" @(item.DropdownId == Model.TypeOfEntityId ? "selected" : "")>@item.DropdownValue</option>
+                    }
+                </select>
+                <span asp-validation-for="TypeOfEntityId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BusinessActivityId">Business Activity <small>*</small></label>
+                <select id="businessActivityId" asp-for="BusinessActivityId" class="form-control" name="businessActivityId">
+                    <option value="">-- Select a Business Activity --</option>
+                    @foreach (var item in Model.BusinessActivityList)
+                    {
+                        <option value="@item.DropdownId" @(item.DropdownId == Model.BusinessActivityId ? "selected" : "")>@item.DropdownValue</option>
+                    }
+                </select>
+                <span asp-validation-for="BusinessActivityId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" id="licenseRequirementsContainer">
+                <label asp-for="LicenseRequirements">License Requirements:</label>
+                <input asp-for="LicenseRequirements" type="text" id="licenseRequirements" name="licenseRequirements" value="@Model.LicenseRequirements" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountryId">Country of Incorporation <small>*</small></label>
+                <select id="countryId" asp-for="CountryId" class="form-control" name="countryId">
+                    <option value="">-- Select a Country of Incorporation --</option>
+                    @foreach (var item in Model.CountryList)
+                    {
+                        <option value="@item.DropdownId" @(item.DropdownId == Model.CountryId ? "selected" : "")>@item.DropdownValue</option>
+                    }
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="registrationNumber">Registration Number: <small>*</small></label>
+                <input id="registrationNumber" asp-for="registrationNumber" type="text" id="registrationNumber" name="registrationNumber" value="@Model.RegistrationNumber" />
+                <span asp-validation-for="registrationNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="dateOfIncorporation">Date of Incorporation: <small>*</small></label>
+                <input id="dateOfIncorporation" asp-for="dateOfIncorporation" type="date" name="dateOfIncorporation" value="@Model.DateOfIncorporation.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="dateOfIncorporation" class="text-danger"></span>
+            </div>
+
+            <h2>Directors/Shareholders</h2>
+            <div id="directorShareholderContainer">
+                <!-- Initial empty container for directors/shareholders -->
+            </div>
+            <div id="errorMessagesDirectorShareholder" class="text-danger"></div>
+            <button type="button" id="addDirectorShareholder">Add Director/Shareholder</button>
+
+            <h2>Designated Applicant</h2>
+            <div class="form-group">
+                <label asp-for="titleDesignateApplicant">Title: <small>*</small></label>
+                <select id="titleDesignateApplicant" asp-for="titleDesignateApplicant" id="titleDesignateApplicant" name="TitleDesignateApplicant">
+                    <option value="">Select Title</option>
+                    <option value="Mr">Mr</option>
+                    <option value="Ms">Ms</option>
+                    <option value="Mrs">Mrs</option>
+                    <option value="Dr">Dr</option>
+                </select>
+                <span asp-validation-for="titleDesignateApplicant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="firstNameDesignateApplicant">First Name: <small>*</small></label>
+                <input id="firstNameDesignateApplicant" asp-for="firstNameDesignateApplicant" type="text" id="firstNameDesignateApplicant" name="firstNameDesignateApplicant" value="@Model.FirstNameDesignateApplicant" />
+                <span asp-validation-for="firstNameDesignateApplicant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="lastNameDesignateApplicant">Last Name: <small>*</small></label>
+                <input id="lastNameDesignateApplicant" asp-for="lastNameDesignateApplicant" type="text" id="lastNameDesignateApplicant" name="lastNameDesignateApplicant" value="@Model.LastNameDesignateApplicant" />
+                <span asp-validation-for="lastNameDesignateApplicant" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="emailAddress">Email: <small>*</small></label>
+                <input id="emailAddress" asp-for="emailAddress" type="text" id="emailAddress" name="emailAddress" value="@Model.EmailAddress" />
+                <span asp-validation-for="emailAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="documentIdentityCard">Upload Identity Card (Max size 10MB. Allowed files.jpg, .jpeg, .png, .pdf):<small>*</small></label>
+                <input type="file" id="documentIdentityCard" name="documentIdentityCard" />
+            </div>
+             <div class="form-group">
+                <label for="documentCertificate">Upload Certificate (Max size 10MB. Allowed files.jpg, .jpeg, .png, .pdf):<small>*</small></label>
+                <input type="file" id="documentCertificate" name="documentCertificate" />
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="/Assets/JS/Customer/Create.js"></script>
+</body>
+</html>

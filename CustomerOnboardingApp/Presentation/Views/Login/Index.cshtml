@@ -1,0 +1,48 @@
+﻿@model CustomerOnboardingApp.Presentation.ViewModels.Login.LoginViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/Assets/CSS/Login/Index.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login</h2>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="error-message">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <p>@error.ErrorMessage</p>
+                    }
+                </div>
+            }
+
+            <!-- Begin the form -->
+            <form id="loginForm" asp-controller="Login" asp-action="Submit" method="post">
+                @Html.AntiForgeryToken()
+                <div id="errorMessages" class="text-danger"></div>
+                <div class="input-group">
+                    <label for="email">Email<small>*</small></label>
+                    <input id="email" asp-for="Email" class="form-control" name="Email" placeholder="Enter your email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password<small>*</small></label>
+                    <input id="password" asp-for="Password" type="password" name="Password" class="form-control" placeholder="Enter your password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+    <script src="/Assets/JS/Login/Index.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\Admin\\CustomerOnboarding\\CustomerOnboardingApp\\wwwroot\\upload_12\\passport.pdf",
+      "PackagePath": "staticwebassets\\upload_12\\passport.pdf"
+    },
+    {
+      "Id": "E:\\Admin\\CustomerOnboarding\\CustomerOnboardingApp\\wwwroot\\upload_12\\test.pdf",
+      "PackagePath": "staticwebassets\\upload_12\\test.pdf"
+    },
+    {
+      "Id": "E:\\Admin\\CustomerOnboarding\\CustomerOnboardingApp\\wwwroot\\upload_13\\passport.pdf",
+      "PackagePath": "staticwebassets\\upload_13\\passport.pdf"
+    },
+    {
+      "Id": "E:\\Admin\\CustomerOnboarding\\CustomerOnboardingApp\\wwwroot\\upload_13\\test.pdf",
+      "PackagePath": "staticwebassets\\upload_13\\test.pdf"
+    },
+    {
+      "Id": "E:\\Admin\\CustomerOnboarding\\CustomerOnboardingApp\\wwwroot\\upload_14\\passport.pdf",
+      "PackagePath": "staticwebassets\\upload_14\\passport.pdf"
+    },
+    {
+      "Id": "E:\\Admin\\CustomerOnboarding\\CustomerOnboardingApp\\wwwroot\\upload_14\\test.pdf",
+      "PackagePath": "staticwebassets\\upload_14\\test.pdf"
+    },
+    {
+      "Id": "E:\\Admin\\CustomerOnboarding\\CustomerOnboardingApp\\wwwroot\\upload_15\\Container Content - Loading.png",
+      "PackagePath": "staticwebassets\\upload_15\\Container Content - Loading.png"
+    },
+    {
+      "Id": "E:\\Admin\\CustomerOnboarding\\CustomerOnboardingApp\\wwwroot\\upload_15\\Greenlight.png",
+      "PackagePath": "staticwebassets\\upload_15\\Greenlight.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CustomerOnboardingApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.CustomerOnboardingApp.props",
+      "PackagePath": "build\\CustomerOnboardingApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.CustomerOnboardingApp.props",
+      "PackagePath": "buildMultiTargeting\\CustomerOnboardingApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.CustomerOnboardingApp.props",
+      "PackagePath": "buildTransitive\\CustomerOnboardingApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

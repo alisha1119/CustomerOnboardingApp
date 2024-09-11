@@ -1,0 +1,209 @@
+﻿@model CustomerOnboardingApp.Presentation.ViewModels.Customer.CustomerViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Customer</title>
+    <link rel="stylesheet" href="/Assets/CSS/Dashboard/EditCustomer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    @{
+        var IsReadOnly = Model.IsReadOnly ? "disabled" : "";
+    }
+    <div class="container">
+        <h2>View Customer</h2>
+
+       
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="customerId" value="@Model.CustomerId" />
+            
+            <div class="form-group">
+                <label asp-for="MainPurposeId">Main Purpose</label>
+            <select asp-for="MainPurposeId" class="form-control" @IsReadOnly>
+                    @foreach (var item in Model.MainPurposeList)
+                    {
+                        <option value="@item.DropdownId" @(item.DropdownId == Model.MainPurposeId ? "selected" : "")>@item.DropdownValue</option>
+                    }
+                </select>
+                <span asp-validation-for="MainPurposeId" class="text-danger"></span>
+            </div>
+
+            
+            <div class="form-group">
+                <label asp-for="NameOfCompany">Company Name</label>
+                <input asp-for="NameOfCompany" class="form-control" value="@Model.NameOfCompany" @IsReadOnly/>
+                <span asp-validation-for="NameOfCompany" class="text-danger"></span>
+            </div>
+
+           
+            <div class="form-group">
+                <label asp-for="TypeOfEntityId">Type of Entity</label>
+                <select asp-for="TypeOfEntityId" class="form-control" @IsReadOnly>
+                    @foreach (var item in Model.TypeOfEntityList)
+                    {
+                        <option value="@item.DropdownId" @(item.DropdownId == Model.TypeOfEntityId ? "selected" : "")>@item.DropdownValue</option>
+                    }
+                </select>
+                <span asp-validation-for="TypeOfEntityId" class="text-danger"></span>
+            </div>
+
+          
+            <div class="form-group">
+                <label asp-for="BusinessActivityId">Business Activity</label>
+                <select asp-for="BusinessActivityId" class="form-control" @IsReadOnly>
+                    @foreach (var item in Model.BusinessActivityList)
+                    {
+                        <option value="@item.DropdownId" @(item.DropdownId == Model.BusinessActivityId ? "selected" : "")>@item.DropdownValue</option>
+                    }
+                </select>
+                <span asp-validation-for="BusinessActivityId" class="text-danger"></span>
+            </div>
+
+            <!-- License Requirements (conditionally displayed) -->
+            @if (Model.BusinessActivityId == 1)
+            {
+                <div class="form-group">
+                    <label asp-for="LicenseRequirements">License Requirements</label>
+                    <input asp-for="LicenseRequirements" class="form-control" value="@Model.LicenseRequirements" @IsReadOnly/>
+                    <span asp-validation-for="LicenseRequirements" class="text-danger"></span>
+                </div>
+            }
+
+        
+            <div class="form-group">
+                <label asp-for="CountryId">Country</label>
+                <select asp-for="CountryId" class="form-control" @IsReadOnly>
+                    @foreach (var item in Model.CountryList)
+                    {
+                        <option value="@item.DropdownId" @(item.DropdownId == Model.CountryId ? "selected" : "")>@item.DropdownValue</option>
+                    }
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+
+       
+            <div class="form-group">
+                <label asp-for="RegistrationNumber">Registration Number</label>
+                <input asp-for="RegistrationNumber" class="form-control" value="@Model.RegistrationNumber" @IsReadOnly/>
+                <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
+            </div>
+
+         
+            <div class="form-group">
+                <label asp-for="DateOfIncorporation">Date of Incorporation</label>
+                <input asp-for="DateOfIncorporation" type="date" class="form-control" value="@Model.DateOfIncorporation.ToString("yyyy-MM-dd")" @IsReadOnly/>
+                <span asp-validation-for="DateOfIncorporation" class="text-danger"></span>
+            </div>
+      
+
+            
+        @if(Model.DirectorShareholderList.Count > 0)
+        {
+            <div class="form-group">
+                <label>Directors/Shareholders</label>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Passport Number</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var director in Model.DirectorShareholderList)
+                        {
+                            <tr>
+                                <td>@director.Title</td>
+                                <td>@director.FirstName</td>
+                                <td>@director.LastName</td>
+                                <td>@director.PassportNumber</td>
+                                <td>@director.Role</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+           
+            <div class="form-group">
+                <label asp-for="FirstNameDesignateApplicant">Designated Applicant First Name</label>
+                <input asp-for="FirstNameDesignateApplicant" class="form-control" value="@Model.FirstNameDesignateApplicant" @IsReadOnly/>
+                <span asp-validation-for="FirstNameDesignateApplicant" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastNameDesignateApplicant">Designated Applicant Last Name</label>
+                <input asp-for="LastNameDesignateApplicant" class="form-control" value="@Model.LastNameDesignateApplicant" @IsReadOnly/>
+                <span asp-validation-for="LastNameDesignateApplicant" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TitleDesignateApplicant">Designated Applicant Title</label>
+                <input asp-for="TitleDesignateApplicant" class="form-control" value="@Model.TitleDesignateApplicant" @IsReadOnly/>
+                <span asp-validation-for="TitleDesignateApplicant" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EmailAddress">Designated Applicant Email</label>
+                <input asp-for="EmailAddress" type="email" class="form-control" value="@Model.EmailAddress" @IsReadOnly/>
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+
+        @if (Model.DocumentList.Count > 0)
+        {
+            <div class="form-group">
+                <label>Documents</label>
+                <table class="table" id="documentTable">
+                    <thead>
+                        <tr>
+                            <th class="hidden-column">DocumentId</th>
+                            <th>Document Name</th>
+                            <th>Document Type</th>
+                            <th>View Document</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var document in Model.DocumentList)
+                        {
+                            <tr>
+                                <td class="hidden-column">@document.DocumentId</td>
+                                <td>@document.DocumentName</td>
+                                <td>@document.DocumentType</td>
+                                <td>
+                                @*     <a href="@Url.Action("ViewDocument", "Dashboard", new { fileName = document.DocumentName, customerId = Model.CustomerId })" target="_blank">
+                                        <i class="fas fa-file-alt"></i> 
+                                    </a> *@
+                                    <a href="@Url.Action("PreviewDocument", "Dashboard", new { fileName = document.DocumentName, customerId = Model.CustomerId })" target="_blank">
+                                        <i class="fa fa-eye"></i> 
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+       
+        @if (Model.IsReadOnly)
+        {
+            <button type="submit" id="approve" name="action" value="approve" class="btn btn-success">Approve</button>
+            <button type="submit" id="rejectProcessed" name="action" value="reject" class="btn btn-danger">Reject</button>
+        }
+        else
+        {
+            <button type="submit" id="process" name="action" value="process" class="btn btn-success">Process</button>
+            <button type="submit" id="rejectSubmitted" name="action" value="reject" class="btn btn-danger">Reject</button>
+        }
+        
+
+    </div>
+    <script src="/Assets/JS/Dashboard/EditCustomer.js"></script>
+</body>
+</html>

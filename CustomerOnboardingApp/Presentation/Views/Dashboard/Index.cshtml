@@ -1,0 +1,90 @@
+﻿@model CustomerOnboardingApp.Presentation.ViewModels.Dashboard.DasboardViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Customers</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        p {
+            font-family: 'Arial', sans-serif;
+            font-size: 16px; 
+            line-height: 0.6; 
+            color: #333; 
+            margin-bottom: 1.5em; 
+            text-align: left; 
+        }
+    </style>
+   
+</head>
+<body>
+    <h2>Processed Applications</h2>
+    <p>Click on one of the items in the grid below to preview the application to either approve or reject it.</p>
+    @if (Model.UserRole == "ProcessingTeam")
+    {
+        <p>Only submitted applications not yet processed are displayed here.</p>
+    }
+    else{
+        <p>Only processed applications not yet validated are displayed here.</p>
+    }
+    
+    <input id="userRole" type="hidden" value="@Model.UserRole">
+    <table id="customerGrid">
+        <thead>
+            <tr>
+                <th>Company Name</th>
+                <th>Business Activity</th>
+                <th>Type of Entity</th>
+                <th>Country</th>
+                <th>Registration Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model.SubmittedCustomerList)
+            {
+                <tr data-customer-id="@customer.CustomerId">
+                    <td>@customer.CompanyName</td>
+                    <td>@customer.BusinessActivity</td>
+                    <td>@customer.TypeOfEntity</td>
+                    <td>@customer.Country</td>
+                    <td>@customer.RegistrationNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var tableRows = document.querySelectorAll('#customerGrid tbody tr');
+            tableRows.forEach(function (row) {
+                row.addEventListener('click', function () {
+                    var userRole = document.getElementById('userRole').value;
+                    var customerId = this.getAttribute('data-customer-id');
+                    if (customerId) {
+                        if (userRole == "Approver") {
+                            var isReadOnly = true;  
+                        }
+                        window.location.href = '/Dashboard/EditCustomer?customerId=' + customerId + '&isReadOnly=' + isReadOnly;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
