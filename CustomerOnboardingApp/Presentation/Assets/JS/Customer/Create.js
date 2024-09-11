@@ -31,6 +31,10 @@ document.getElementById('addDirectorShareholder').addEventListener('click', func
 // Validate the form before submitting
 document.getElementById('customerForm').addEventListener('submit', function (event) {
     let isValid = true;
+    //Make sure the div displaying the errors are empty
+    document.getElementById('errorMessagesCustomer').innerHTML = "";
+    document.getElementById('errorMessagesDirectorShareholder').innerHTML = "";
+
     let errorMessagesCustomer = [];
     let errorMessagesDirectorShareholder = [];
     let errorMessagesDocument = [];
